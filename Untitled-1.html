@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Games for Free</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrolling during the animation */
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Full background image */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('untitled.png'); /* Updated image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: fadeIn 3s ease-in-out;
+        }
+        
+        /* Title container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1; /* Ensures it is above the background */
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3em; /* Increased font size */
+            color: white; /* White text color */
+            white-space: nowrap; /* Prevents line breaks */
+            transform: translateY(0); /* Start at center */
+            transition: transform 1s ease-in-out; /* Smooth transition for the move effect */
+        }
+
+        /* Scroll-down button styling */
+        .scroll-button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px; /* Size of the arrow */
+            background: rgba(0, 0, 0, 0.6); /* Background color */
+            color: white; /* Text color */
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2; /* Ensures it is above the content */
+            opacity: 0; /* Start with hidden button */
+            animation: fadeInButton 3s ease-in-out forwards 3s; /* Delay to sync with title animation */
+        }
+
+        /* Up arrow button styling */
+        .up-button {
+            position: absolute;
+            left: 50%;
+            top: 10%;
+            transform: translate(-50%, 0);
+            font-size: 24px; /* Size of the arrow */
+            background: rgba(0, 0, 0, 0.6); /* Background color */
+            color: white; /* Text color */
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2; /* Ensures it is above the content */
+        }
+
+        /* Download link styling */
+        .download-link {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            text-align: center;
+            z-index: 1; /* Ensures it is above the background */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInButton {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8); /* Scale down initially */
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1); /* Scale up to normal size */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1 id="title">STEAM GAMES FOR FREE</h1>
+    </div>
+    <!-- Scroll-down button -->
+    <button class="scroll-button" id="scrollButton">&#9660;</button>
+
+    <!-- Up arrow button -->
+    <button class="up-button" id="upButton">&#9650;</button>
+
+    <!-- Download link -->
+    <a href="Supermarket.Simulator.v0.2.zip" class="download-link" id="downloadLink" download>Download File</a>
+
+    <script>
+        // Function to animate title, hide scroll button, show download link, and show up button
+        function showDownloadLink() {
+            // Move title further out of view
+            document.getElementById('title').style.transform = 'translateY(-100vh)';
+            
+            // Hide scroll-down button and show the up button
+            document.getElementById('scrollButton').style.display = 'none';
+            document.getElementById('upButton').style.display = 'flex';
+            
+            // Show the download link after the animation
+            setTimeout(function() {
+                document.getElementById('downloadLink').style.display = 'block';
+            }, 1000); // Delay should match the duration of the title move animation
+        }
+
+        // Function to scroll back to the top
+        function scrollToTop() {
+            document.getElementById('title').style.transform = 'translateY(0)';
+            document.getElementById('downloadLink').style.display = 'none';
+            document.getElementById('scrollButton').style.display = 'flex';
+            document.getElementById('upButton').style.display = 'none';
+        }
+
+        // Add event listener to the scroll button
+        document.getElementById('scrollButton').addEventListener('click', function() {
+            showDownloadLink();
+        });
+
+        // Add event listener to the up button
+        document.getElementById('upButton').addEventListener('click', function() {
+            scrollToTop();
+        });
+
+        // Trigger title animation on page load
+        window.onload = function() {
+            document.getElementById('title').style.transform = 'translateY(-40vh)';
+        };
+    </script>
+</body>
+</html>
